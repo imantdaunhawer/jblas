@@ -168,6 +168,15 @@ public class TestBlasFloat {
   }
 
   @Test
+  public void testSymmetricComplexSolve() {
+    ComplexFloatMatrix A = new ComplexFloatMatrix(3, 3, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8, 0, 9, 0);
+    ComplexFloatMatrix x = new ComplexFloatMatrix(3, 1, 1, 0, 2, 0, 3, 0);
+    int[] p = new int[3];
+    SimpleBlas.sysv('U', A, p, x);
+    assertTrue(arraysEqual(x.real().data, 0.3f, 0.0f, 0.1f));
+  }
+
+  @Test
   public void testSYEV() {
     /* From R:
         > x <- matrix(c(1,0.5f,0.1f,0.5f,1.0f, 0.5f, 0.1f, 0.5f, 1.0f), 3, 3)

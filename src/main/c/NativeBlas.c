@@ -102,7 +102,7 @@ static ComplexDouble getComplexDouble(JNIEnv *env, jobject dc)
 /**********************************************************************/
 
 static char *routine_names[] = {
- "CAXPY",  "CCOPY",  "CDOTC",  "CDOTU",  "CGEEV",  "CGEMM",  "CGEMV",  "CGERC",  "CGERU",  "CGESVD",  "CHEEV",  "CSCAL",  "CSSCAL",  "CSWAP",  "DASUM",  "DAXPY",  "DCOPY",  "DDOT",  "DGEEV",  "DGELSD",  "DGEMM",  "DGEMV",  "DGEQRF",  "DGER",  "DGESV",  "DGESVD",  "DGETRF",  "DNRM2",  "DORGQR",  "DORMQR",  "DPOSV",  "DPOTRF",  "DSCAL",  "DSWAP",  "DSYEV",  "DSYEVD",  "DSYEVR",  "DSYEVX",  "DSYGVD",  "DSYGVX",  "DSYSV",  "DZASUM",  "DZNRM2",  "ICAMAX",  "IDAMAX",  "ILAENV",  "ISAMAX",  "IZAMAX",  "SASUM",  "SAXPY",  "SCASUM",  "SCNRM2",  "SCOPY",  "SDOT",  "SGEEV",  "SGELSD",  "SGEMM",  "SGEMV",  "SGEQRF",  "SGER",  "SGESV",  "SGESVD",  "SGETRF",  "SNRM2",  "SORGQR",  "SORMQR",  "SPOSV",  "SPOTRF",  "SSCAL",  "SSWAP",  "SSYEV",  "SSYEVD",  "SSYEVR",  "SSYEVX",  "SSYGVD",  "SSYGVX",  "SSYSV",  "ZAXPY",  "ZCOPY",  "ZDOTC",  "ZDOTU",  "ZDSCAL",  "ZGEEV",  "ZGEMM",  "ZGEMV",  "ZGERC",  "ZGERU",  "ZGESVD",  "ZHEEV",  "ZSCAL",  "ZSWAP", 	0
+ "CAXPY",  "CCOPY",  "CDOTC",  "CDOTU",  "CGEEV",  "CGEMM",  "CGEMV",  "CGERC",  "CGERU",  "CGESVD",  "CHEEV",  "CPOSV",  "CSCAL",  "CSSCAL",  "CSWAP",  "CSYSV",  "DASUM",  "DAXPY",  "DCOPY",  "DDOT",  "DGEEV",  "DGELSD",  "DGEMM",  "DGEMV",  "DGEQRF",  "DGER",  "DGESV",  "DGESVD",  "DGETRF",  "DNRM2",  "DORGQR",  "DORMQR",  "DPOSV",  "DPOTRF",  "DSCAL",  "DSWAP",  "DSYEV",  "DSYEVD",  "DSYEVR",  "DSYEVX",  "DSYGVD",  "DSYGVX",  "DSYSV",  "DZASUM",  "DZNRM2",  "ICAMAX",  "IDAMAX",  "ILAENV",  "ISAMAX",  "IZAMAX",  "SASUM",  "SAXPY",  "SCASUM",  "SCNRM2",  "SCOPY",  "SDOT",  "SGEEV",  "SGELSD",  "SGEMM",  "SGEMV",  "SGEQRF",  "SGER",  "SGESV",  "SGESVD",  "SGETRF",  "SNRM2",  "SORGQR",  "SORMQR",  "SPOSV",  "SPOTRF",  "SSCAL",  "SSWAP",  "SSYEV",  "SSYEVD",  "SSYEVR",  "SSYEVX",  "SSYGVD",  "SSYGVX",  "SSYSV",  "ZAXPY",  "ZCOPY",  "ZDOTC",  "ZDOTU",  "ZDSCAL",  "ZGEEV",  "ZGEMM",  "ZGEMV",  "ZGERC",  "ZGERU",  "ZGESVD",  "ZHEEV",  "ZPOSV",  "ZSCAL",  "ZSWAP",  "ZSYSV", 	0
 };
 
 static char *routine_arguments[][23] = {
@@ -117,9 +117,11 @@ static char *routine_arguments[][23] = {
    { "M", "N", "ALPHA", "X", "INCX", "Y", "INCY", "A", "LDA" }, 
    { "JOBU", "JOBVT", "M", "N", "A", "LDA", "S", "U", "LDU", "VT", "LDVT", "WORK", "LWORK", "RWORK", "INFO" }, 
    { "JOBZ", "UPLO", "N", "A", "LDA", "W", "WORK", "LWORK", "RWORK", "INFO" }, 
+   { "UPLO", "N", "NRHS", "A", "LDA", "B", "LDB", "INFO" }, 
    { "N", "CA", "CX", "INCX" }, 
    { "N", "SA", "CX", "INCX" }, 
    { "N", "CX", "INCX", "CY", "INCY" }, 
+   { "UPLO", "N", "NRHS", "A", "LDA", "IPIV", "B", "LDB", "WORK", "LWORK", "INFO" }, 
    { "N", "DX", "INCX" }, 
    { "N", "DA", "DX", "INCX", "DY", "INCY" }, 
    { "N", "DX", "INCX", "DY", "INCY" }, 
@@ -195,8 +197,10 @@ static char *routine_arguments[][23] = {
    { "M", "N", "ALPHA", "X", "INCX", "Y", "INCY", "A", "LDA" }, 
    { "JOBU", "JOBVT", "M", "N", "A", "LDA", "S", "U", "LDU", "VT", "LDVT", "WORK", "LWORK", "RWORK", "INFO" }, 
    { "JOBZ", "UPLO", "N", "A", "LDA", "W", "WORK", "LWORK", "RWORK", "INFO" }, 
+   { "UPLO", "N", "NRHS", "A", "LDA", "B", "LDB", "INFO" }, 
    { "N", "ZA", "ZX", "INCX" }, 
    { "N", "ZX", "INCX", "ZY", "INCY" }, 
+   { "UPLO", "N", "NRHS", "A", "LDA", "IPIV", "B", "LDB", "WORK", "LWORK", "INFO" }, 
 };
 
 /**********************************************************************/
@@ -2015,6 +2019,69 @@ JNIEXPORT jint JNICALL Java_org_jblas_NativeBlas_sgesv(JNIEnv *env, jclass this,
   return info;
 }
 
+JNIEXPORT jint JNICALL Java_org_jblas_NativeBlas_csysv(JNIEnv *env, jclass this, jchar uplo, jint n, jint nrhs, jfloatArray a, jint aIdx, jint lda, jintArray ipiv, jint ipivIdx, jfloatArray b, jint bIdx, jint ldb, jfloatArray work, jint workIdx, jint lwork)
+{
+  extern void csysv_(char *, jint *, jint *, jfloat *, jint *, jint *, jfloat *, jint *, jfloat *, jint *, int *);
+  
+  char uploChr = (char) uplo;
+  jfloat *aPtrBase = 0, *aPtr = 0;
+  if (a) {
+    aPtrBase = (*env)->GetFloatArrayElements(env, a, NULL);
+    aPtr = aPtrBase + 2*aIdx;
+  }
+  jint *ipivPtrBase = 0, *ipivPtr = 0;
+  if (ipiv) {
+    ipivPtrBase = (*env)->GetIntArrayElements(env, ipiv, NULL);
+    ipivPtr = ipivPtrBase + ipivIdx;
+  }
+  jfloat *bPtrBase = 0, *bPtr = 0;
+  if (b) {
+    if((*env)->IsSameObject(env, b, a) == JNI_TRUE)
+      bPtrBase = aPtrBase;
+    else
+      bPtrBase = (*env)->GetFloatArrayElements(env, b, NULL);
+    bPtr = bPtrBase + 2*bIdx;
+  }
+  jfloat *workPtrBase = 0, *workPtr = 0;
+  if (work) {
+    if((*env)->IsSameObject(env, work, a) == JNI_TRUE)
+      workPtrBase = aPtrBase;
+    else
+      if((*env)->IsSameObject(env, work, b) == JNI_TRUE)
+      workPtrBase = bPtrBase;
+    else
+      workPtrBase = (*env)->GetFloatArrayElements(env, work, NULL);
+    workPtr = workPtrBase + 2*workIdx;
+  }
+  int info;
+
+  csysv_(&uploChr, &n, &nrhs, aPtr, &lda, ipivPtr, bPtr, &ldb, workPtr, &lwork, &info);
+  if(workPtrBase) {
+    (*env)->ReleaseFloatArrayElements(env, work, workPtrBase, 0);
+    if (workPtrBase == aPtrBase)
+      aPtrBase = 0;
+    if (workPtrBase == bPtrBase)
+      bPtrBase = 0;
+    workPtrBase = 0;
+  }
+  if(bPtrBase) {
+    (*env)->ReleaseFloatArrayElements(env, b, bPtrBase, 0);
+    if (bPtrBase == aPtrBase)
+      aPtrBase = 0;
+    bPtrBase = 0;
+  }
+  if(ipivPtrBase) {
+    (*env)->ReleaseIntArrayElements(env, ipiv, ipivPtrBase, 0);
+    ipivPtrBase = 0;
+  }
+  if(aPtrBase) {
+    (*env)->ReleaseFloatArrayElements(env, a, aPtrBase, 0);
+    aPtrBase = 0;
+  }
+
+  return info;
+}
+
 JNIEXPORT jint JNICALL Java_org_jblas_NativeBlas_dsysv(JNIEnv *env, jclass this, jchar uplo, jint n, jint nrhs, jdoubleArray a, jint aIdx, jint lda, jintArray ipiv, jint ipivIdx, jdoubleArray b, jint bIdx, jint ldb, jdoubleArray work, jint workIdx, jint lwork)
 {
   extern void dsysv_(char *, jint *, jint *, jdouble *, jint *, jint *, jdouble *, jint *, jdouble *, jint *, int *);
@@ -2135,6 +2202,69 @@ JNIEXPORT jint JNICALL Java_org_jblas_NativeBlas_ssysv(JNIEnv *env, jclass this,
   }
   if(aPtrBase) {
     (*env)->ReleaseFloatArrayElements(env, a, aPtrBase, 0);
+    aPtrBase = 0;
+  }
+
+  return info;
+}
+
+JNIEXPORT jint JNICALL Java_org_jblas_NativeBlas_zsysv(JNIEnv *env, jclass this, jchar uplo, jint n, jint nrhs, jdoubleArray a, jint aIdx, jint lda, jintArray ipiv, jint ipivIdx, jdoubleArray b, jint bIdx, jint ldb, jdoubleArray work, jint workIdx, jint lwork)
+{
+  extern void zsysv_(char *, jint *, jint *, jdouble *, jint *, jint *, jdouble *, jint *, jdouble *, jint *, int *);
+  
+  char uploChr = (char) uplo;
+  jdouble *aPtrBase = 0, *aPtr = 0;
+  if (a) {
+    aPtrBase = (*env)->GetDoubleArrayElements(env, a, NULL);
+    aPtr = aPtrBase + 2*aIdx;
+  }
+  jint *ipivPtrBase = 0, *ipivPtr = 0;
+  if (ipiv) {
+    ipivPtrBase = (*env)->GetIntArrayElements(env, ipiv, NULL);
+    ipivPtr = ipivPtrBase + ipivIdx;
+  }
+  jdouble *bPtrBase = 0, *bPtr = 0;
+  if (b) {
+    if((*env)->IsSameObject(env, b, a) == JNI_TRUE)
+      bPtrBase = aPtrBase;
+    else
+      bPtrBase = (*env)->GetDoubleArrayElements(env, b, NULL);
+    bPtr = bPtrBase + 2*bIdx;
+  }
+  jdouble *workPtrBase = 0, *workPtr = 0;
+  if (work) {
+    if((*env)->IsSameObject(env, work, a) == JNI_TRUE)
+      workPtrBase = aPtrBase;
+    else
+      if((*env)->IsSameObject(env, work, b) == JNI_TRUE)
+      workPtrBase = bPtrBase;
+    else
+      workPtrBase = (*env)->GetDoubleArrayElements(env, work, NULL);
+    workPtr = workPtrBase + 2*workIdx;
+  }
+  int info;
+
+  zsysv_(&uploChr, &n, &nrhs, aPtr, &lda, ipivPtr, bPtr, &ldb, workPtr, &lwork, &info);
+  if(workPtrBase) {
+    (*env)->ReleaseDoubleArrayElements(env, work, workPtrBase, 0);
+    if (workPtrBase == aPtrBase)
+      aPtrBase = 0;
+    if (workPtrBase == bPtrBase)
+      bPtrBase = 0;
+    workPtrBase = 0;
+  }
+  if(bPtrBase) {
+    (*env)->ReleaseDoubleArrayElements(env, b, bPtrBase, 0);
+    if (bPtrBase == aPtrBase)
+      aPtrBase = 0;
+    bPtrBase = 0;
+  }
+  if(ipivPtrBase) {
+    (*env)->ReleaseIntArrayElements(env, ipiv, ipivPtrBase, 0);
+    ipivPtrBase = 0;
+  }
+  if(aPtrBase) {
+    (*env)->ReleaseDoubleArrayElements(env, a, aPtrBase, 0);
     aPtrBase = 0;
   }
 
@@ -2867,6 +2997,41 @@ JNIEXPORT jint JNICALL Java_org_jblas_NativeBlas_ssyevx(JNIEnv *env, jclass this
   return info;
 }
 
+JNIEXPORT jint JNICALL Java_org_jblas_NativeBlas_cposv(JNIEnv *env, jclass this, jchar uplo, jint n, jint nrhs, jfloatArray a, jint aIdx, jint lda, jfloatArray b, jint bIdx, jint ldb)
+{
+  extern void cposv_(char *, jint *, jint *, jfloat *, jint *, jfloat *, jint *, int *);
+  
+  char uploChr = (char) uplo;
+  jfloat *aPtrBase = 0, *aPtr = 0;
+  if (a) {
+    aPtrBase = (*env)->GetFloatArrayElements(env, a, NULL);
+    aPtr = aPtrBase + 2*aIdx;
+  }
+  jfloat *bPtrBase = 0, *bPtr = 0;
+  if (b) {
+    if((*env)->IsSameObject(env, b, a) == JNI_TRUE)
+      bPtrBase = aPtrBase;
+    else
+      bPtrBase = (*env)->GetFloatArrayElements(env, b, NULL);
+    bPtr = bPtrBase + 2*bIdx;
+  }
+  int info;
+
+  cposv_(&uploChr, &n, &nrhs, aPtr, &lda, bPtr, &ldb, &info);
+  if(bPtrBase) {
+    (*env)->ReleaseFloatArrayElements(env, b, bPtrBase, 0);
+    if (bPtrBase == aPtrBase)
+      aPtrBase = 0;
+    bPtrBase = 0;
+  }
+  if(aPtrBase) {
+    (*env)->ReleaseFloatArrayElements(env, a, aPtrBase, 0);
+    aPtrBase = 0;
+  }
+
+  return info;
+}
+
 JNIEXPORT jint JNICALL Java_org_jblas_NativeBlas_dposv(JNIEnv *env, jclass this, jchar uplo, jint n, jint nrhs, jdoubleArray a, jint aIdx, jint lda, jdoubleArray b, jint bIdx, jint ldb)
 {
   extern void dposv_(char *, jint *, jint *, jdouble *, jint *, jdouble *, jint *, int *);
@@ -2931,6 +3096,41 @@ JNIEXPORT jint JNICALL Java_org_jblas_NativeBlas_sposv(JNIEnv *env, jclass this,
   }
   if(aPtrBase) {
     (*env)->ReleaseFloatArrayElements(env, a, aPtrBase, 0);
+    aPtrBase = 0;
+  }
+
+  return info;
+}
+
+JNIEXPORT jint JNICALL Java_org_jblas_NativeBlas_zposv(JNIEnv *env, jclass this, jchar uplo, jint n, jint nrhs, jdoubleArray a, jint aIdx, jint lda, jdoubleArray b, jint bIdx, jint ldb)
+{
+  extern void zposv_(char *, jint *, jint *, jdouble *, jint *, jdouble *, jint *, int *);
+  
+  char uploChr = (char) uplo;
+  jdouble *aPtrBase = 0, *aPtr = 0;
+  if (a) {
+    aPtrBase = (*env)->GetDoubleArrayElements(env, a, NULL);
+    aPtr = aPtrBase + 2*aIdx;
+  }
+  jdouble *bPtrBase = 0, *bPtr = 0;
+  if (b) {
+    if((*env)->IsSameObject(env, b, a) == JNI_TRUE)
+      bPtrBase = aPtrBase;
+    else
+      bPtrBase = (*env)->GetDoubleArrayElements(env, b, NULL);
+    bPtr = bPtrBase + 2*bIdx;
+  }
+  int info;
+
+  zposv_(&uploChr, &n, &nrhs, aPtr, &lda, bPtr, &ldb, &info);
+  if(bPtrBase) {
+    (*env)->ReleaseDoubleArrayElements(env, b, bPtrBase, 0);
+    if (bPtrBase == aPtrBase)
+      aPtrBase = 0;
+    bPtrBase = 0;
+  }
+  if(aPtrBase) {
+    (*env)->ReleaseDoubleArrayElements(env, a, aPtrBase, 0);
     aPtrBase = 0;
   }
 

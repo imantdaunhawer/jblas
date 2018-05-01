@@ -66,6 +66,15 @@ public class SimpleBlas {
 		return y;
 	}
 
+    /**
+     * Compute x &lt;-&gt; y (swap two complex matrices)
+     */
+    public static ComplexDoubleMatrix swap(ComplexDoubleMatrix x, ComplexDoubleMatrix y) {
+        // take twice the length, because .data() unrolls both the real and complex part
+        JavaBlas.rswap(2 * x.length, x.data, 0, 1, y.data, 0, 1);
+        return y;
+    }
+
 	/**
 	 * Compute x <- alpha * x (scale a matrix)
 	 */
@@ -205,6 +214,17 @@ public class SimpleBlas {
 	}
 
 	/**
+	 * Compute y <- alpha*op(a)*x + beta * y (general matrix vector
+	 * multiplication)
+	 */
+	public static ComplexDoubleMatrix gemv(ComplexDouble alpha, ComplexDoubleMatrix a, ComplexDoubleMatrix x,
+									ComplexDouble beta, ComplexDoubleMatrix y) {
+		NativeBlas.zgemv('N', a.rows, a.columns, alpha, a.data, 0, a.rows, x.data, 0,
+				1, beta, y.data, 0, 1);
+        return y;
+	}
+
+	/**
 	 * Compute A <- alpha * x * y^T + A (general rank-1 update)
 	 */
 	public static DoubleMatrix ger(double alpha, DoubleMatrix x,
@@ -288,7 +308,20 @@ public class SimpleBlas {
 		checkInfo("SYSV", info);
 
 		if (info > 0)
-			throw new LapackSingularityException("SYV",
+			throw new LapackSingularityException("SYSV",
+					"Linear equation cannot be solved because the matrix was singular.");
+
+		return b;
+	}
+
+	public static ComplexDoubleMatrix sysv(char uplo, ComplexDoubleMatrix a, int[] ipiv,
+            ComplexDoubleMatrix b) {
+		int info = NativeBlas.zsysv(uplo, a.rows, b.columns, a.data, 0, a.rows, ipiv, 0,
+				b.data, 0, b.rows);
+		checkInfo("SYSV", info);
+
+		if (info > 0)
+			throw new LapackSingularityException("SYSV",
 					"Linear equation cannot be solved because the matrix was singular.");
 
 		return b;
@@ -367,6 +400,16 @@ public class SimpleBlas {
 		checkInfo("DPOSV", info);
 		if (info > 0)
 			throw new LapackArgumentException("DPOSV",
+					"Leading minor of order i of A is not positive definite.");
+	}
+
+	public static void posv(char uplo, ComplexDoubleMatrix A, ComplexDoubleMatrix B) {
+		int n = A.rows;
+		int nrhs = B.columns;
+		int info = NativeBlas.zposv(uplo, n, nrhs, A.data, 0, A.rows, B.data, 0, B.rows);
+		checkInfo("ZPOSV", info);
+		if (info > 0)
+			throw new LapackArgumentException("ZPOSV",
 					"Leading minor of order i of A is not positive definite.");
 	}
 
@@ -513,6 +556,15 @@ public class SimpleBlas {
 		return y;
 	}
 
+    /**
+     * Compute x &lt;-&gt; y (swap two complex matrices)
+     */
+    public static ComplexFloatMatrix swap(ComplexFloatMatrix x, ComplexFloatMatrix y) {
+        // take twice the length, because .data() unrolls both the real and complex part
+        JavaBlas.rswap(2 * x.length, x.data, 0, 1, y.data, 0, 1);
+        return y;
+    }
+
 	/**
 	 * Compute x <- alpha * x (scale a matrix)
 	 */
@@ -652,6 +704,17 @@ public class SimpleBlas {
 	}
 
 	/**
+	 * Compute y <- alpha*op(a)*x + beta * y (general matrix vector
+	 * multiplication)
+	 */
+	public static ComplexFloatMatrix gemv(ComplexFloat alpha, ComplexFloatMatrix a, ComplexFloatMatrix x,
+									ComplexFloat beta, ComplexFloatMatrix y) {
+		NativeBlas.cgemv('N', a.rows, a.columns, alpha, a.data, 0, a.rows, x.data, 0,
+				1, beta, y.data, 0, 1);
+        return y;
+	}
+
+	/**
 	 * Compute A <- alpha * x * y^T + A (general rank-1 update)
 	 */
 	public static FloatMatrix ger(float alpha, FloatMatrix x,
@@ -728,7 +791,20 @@ public class SimpleBlas {
 		checkInfo("SYSV", info);
 
 		if (info > 0)
-			throw new LapackSingularityException("SYV",
+			throw new LapackSingularityException("SYSV",
+					"Linear equation cannot be solved because the matrix was singular.");
+
+		return b;
+	}
+
+	public static ComplexFloatMatrix sysv(char uplo, ComplexFloatMatrix a, int[] ipiv,
+            ComplexFloatMatrix b) {
+		int info = NativeBlas.csysv(uplo, a.rows, b.columns, a.data, 0, a.rows, ipiv, 0,
+				b.data, 0, b.rows);
+		checkInfo("SYSV", info);
+
+		if (info > 0)
+			throw new LapackSingularityException("SYSV",
 					"Linear equation cannot be solved because the matrix was singular.");
 
 		return b;
@@ -807,6 +883,16 @@ public class SimpleBlas {
 		checkInfo("DPOSV", info);
 		if (info > 0)
 			throw new LapackArgumentException("DPOSV",
+					"Leading minor of order i of A is not positive definite.");
+	}
+
+	public static void posv(char uplo, ComplexFloatMatrix A, ComplexFloatMatrix B) {
+		int n = A.rows;
+		int nrhs = B.columns;
+		int info = NativeBlas.cposv(uplo, n, nrhs, A.data, 0, A.rows, B.data, 0, B.rows);
+		checkInfo("ZPOSV", info);
+		if (info > 0)
+			throw new LapackArgumentException("ZPOSV",
 					"Leading minor of order i of A is not positive definite.");
 	}
 

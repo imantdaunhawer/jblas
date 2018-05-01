@@ -58,11 +58,27 @@ public class Solve {
 		return X;
 	}
 
-	
+	/** Solves the linear equation A*X = B for complex symmetric A. */
+	public static ComplexDoubleMatrix solveSymmetric(ComplexDoubleMatrix A, ComplexDoubleMatrix B) {
+		A.assertSquare();
+		ComplexDoubleMatrix X = B.dup();
+		int[] ipiv = new int[B.rows];
+		SimpleBlas.sysv('U', A.dup(), ipiv, X);
+		return X;
+	}
+
 	/** Solves the linear equation A*X = B for symmetric and positive definite A. */
 	public static DoubleMatrix solvePositive(DoubleMatrix A, DoubleMatrix B) {
 		A.assertSquare();
 		DoubleMatrix X = B.dup();
+		SimpleBlas.posv('U', A.dup(), X);
+		return X;
+	}
+
+	/** Solves the linear equation A*X = B for Hermitian and positive definite A. */
+	public static ComplexDoubleMatrix solvePositive(ComplexDoubleMatrix A, ComplexDoubleMatrix B) {
+		A.assertSquare();
+		ComplexDoubleMatrix X = B.dup();
 		SimpleBlas.posv('U', A.dup(), X);
 		return X;
 	}
@@ -126,11 +142,27 @@ public class Solve {
 		return X;
 	}
 
-	
+	/** Solves the linear equation A*X = B for complex symmetric A. */
+	public static ComplexFloatMatrix solveSymmetric(ComplexFloatMatrix A, ComplexFloatMatrix B) {
+		A.assertSquare();
+		ComplexFloatMatrix X = B.dup();
+		int[] ipiv = new int[B.rows];
+		SimpleBlas.sysv('U', A.dup(), ipiv, X);
+		return X;
+	}
+
 	/** Solves the linear equation A*X = B for symmetric and positive definite A. */
 	public static FloatMatrix solvePositive(FloatMatrix A, FloatMatrix B) {
 		A.assertSquare();
 		FloatMatrix X = B.dup();
+		SimpleBlas.posv('U', A.dup(), X);
+		return X;
+	}
+
+	/** Solves the linear equation A*X = B for Hermitian and positive definite A. */
+	public static ComplexFloatMatrix solvePositive(ComplexFloatMatrix A, ComplexFloatMatrix B) {
+		A.assertSquare();
+		ComplexFloatMatrix X = B.dup();
 		SimpleBlas.posv('U', A.dup(), X);
 		return X;
 	}

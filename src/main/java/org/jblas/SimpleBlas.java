@@ -379,6 +379,16 @@ public class SimpleBlas {
 					"Leading minor of order i of A is not positive definite.");
 	}
 
+	public static void posv(char uplo, ComplexDoubleMatrix A, ComplexDoubleMatrix B) {
+		int n = A.rows;
+		int nrhs = B.columns;
+		int info = NativeBlas.zposv(uplo, n, nrhs, A.data, 0, A.rows, B.data, 0, B.rows);
+		checkInfo("ZPOSV", info);
+		if (info > 0)
+			throw new LapackArgumentException("ZPOSV",
+					"Leading minor of order i of A is not positive definite.");
+	}
+
 	public static int geev(char jobvl, char jobvr, DoubleMatrix A,
 			DoubleMatrix WR, DoubleMatrix WI, DoubleMatrix VL, DoubleMatrix VR) {
 		int info = NativeBlas.dgeev(jobvl, jobvr, A.rows, A.data, 0, A.rows, WR.data, 0,
@@ -825,6 +835,16 @@ public class SimpleBlas {
 		checkInfo("DPOSV", info);
 		if (info > 0)
 			throw new LapackArgumentException("DPOSV",
+					"Leading minor of order i of A is not positive definite.");
+	}
+
+	public static void posv(char uplo, ComplexFloatMatrix A, ComplexFloatMatrix B) {
+		int n = A.rows;
+		int nrhs = B.columns;
+		int info = NativeBlas.cposv(uplo, n, nrhs, A.data, 0, A.rows, B.data, 0, B.rows);
+		checkInfo("ZPOSV", info);
+		if (info > 0)
+			throw new LapackArgumentException("ZPOSV",
 					"Leading minor of order i of A is not positive definite.");
 	}
 

@@ -138,7 +138,7 @@ generated-sources: \
 	$(LAPACK)/[sd]sysv.f \
 	$(LAPACK)/[sd]syev.f \
 	$(LAPACK)/[sd]syev[rdx].f \
-	$(LAPACK)/[sd]posv.f \
+	$(LAPACK)/[sdcz]posv.f \
 	$(LAPACK)/[sdcz]geev.f \
 	$(LAPACK)/[sd]getrf.f \
 	$(LAPACK)/[sd]potrf.f \

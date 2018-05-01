@@ -275,8 +275,10 @@ public class NativeBlas {
     return info;
   }
 
+  public static native int cposv(char uplo, int n, int nrhs, float[] a, int aIdx, int lda, float[] b, int bIdx, int ldb);
   public static native int dposv(char uplo, int n, int nrhs, double[] a, int aIdx, int lda, double[] b, int bIdx, int ldb);
   public static native int sposv(char uplo, int n, int nrhs, float[] a, int aIdx, int lda, float[] b, int bIdx, int ldb);
+  public static native int zposv(char uplo, int n, int nrhs, double[] a, int aIdx, int lda, double[] b, int bIdx, int ldb);
   public static native int cgeev(char jobvl, char jobvr, int n, float[] a, int aIdx, int lda, float[] w, int wIdx, float[] vl, int vlIdx, int ldvl, float[] vr, int vrIdx, int ldvr, float[] work, int workIdx, int lwork, float[] rwork, int rworkIdx);
   public static int cgeev(char jobvl, char jobvr, int n, float[] a, int aIdx, int lda, float[] w, int wIdx, float[] vl, int vlIdx, int ldvl, float[] vr, int vrIdx, int ldvr, float[] rwork, int rworkIdx) {
     int info;

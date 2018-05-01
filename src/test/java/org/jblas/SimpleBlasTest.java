@@ -97,4 +97,18 @@ public class SimpleBlasTest {
         assertEquals(4, x.sum().imag(), eps);
         assertEquals(4, y.sum().real(), eps);
     }
+
+    @Test
+    public void testGemv() {
+        DoubleMatrix A = new DoubleMatrix(new double[][]{{1.0, 4.0, 7.0}, {2.0, 5.0, 8.0}, {3.0, 6.0, 9.0}});
+        DoubleMatrix x = new DoubleMatrix(new double[]{1.0, 3.0, 7.0});
+        DoubleMatrix y = new DoubleMatrix(new double[]{0.0, 0.0, 0.0});
+
+        DoubleMatrix y1 = SimpleBlas.gemv(1.0, A, x, 0.0, y.dup());
+        ComplexDoubleMatrix y2 = SimpleBlas.gemv(new ComplexDouble(1.0), A.toComplex(), x.toComplex(),
+                new ComplexDouble(0.0), y.toComplex().dup());
+
+        assertArrayEquals(new double[]{62.0, 73.0, 84.0}, y1.data, eps);
+        assertArrayEquals(new double[]{62.0, 73.0, 84.0}, y2.real().data, eps);
+    }
 }

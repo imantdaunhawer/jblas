@@ -214,6 +214,17 @@ public class SimpleBlas {
 	}
 
 	/**
+	 * Compute y <- alpha*op(a)*x + beta * y (general matrix vector
+	 * multiplication)
+	 */
+	public static ComplexDoubleMatrix gemv(ComplexDouble alpha, ComplexDoubleMatrix a, ComplexDoubleMatrix x,
+									ComplexDouble beta, ComplexDoubleMatrix y) {
+		NativeBlas.zgemv('N', a.rows, a.columns, alpha, a.data, 0, a.rows, x.data, 0,
+				1, beta, y.data, 0, 1);
+        return y;
+	}
+
+	/**
 	 * Compute A <- alpha * x * y^T + A (general rank-1 update)
 	 */
 	public static DoubleMatrix ger(double alpha, DoubleMatrix x,
@@ -690,6 +701,17 @@ public class SimpleBlas {
 			}
 		}
 		return y;
+	}
+
+	/**
+	 * Compute y <- alpha*op(a)*x + beta * y (general matrix vector
+	 * multiplication)
+	 */
+	public static ComplexFloatMatrix gemv(ComplexFloat alpha, ComplexFloatMatrix a, ComplexFloatMatrix x,
+									ComplexFloat beta, ComplexFloatMatrix y) {
+		NativeBlas.cgemv('N', a.rows, a.columns, alpha, a.data, 0, a.rows, x.data, 0,
+				1, beta, y.data, 0, 1);
+        return y;
 	}
 
 	/**

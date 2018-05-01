@@ -66,6 +66,15 @@ public class SimpleBlas {
 		return y;
 	}
 
+    /**
+     * Compute x &lt;-&gt; y (swap two complex matrices)
+     */
+    public static ComplexDoubleMatrix swap(ComplexDoubleMatrix x, ComplexDoubleMatrix y) {
+        // take twice the length, because .data() unrolls both the real and complex part
+        JavaBlas.rswap(2 * x.length, x.data, 0, 1, y.data, 0, 1);
+        return y;
+    }
+
 	/**
 	 * Compute x <- alpha * x (scale a matrix)
 	 */
@@ -512,6 +521,15 @@ public class SimpleBlas {
 		JavaBlas.rswap(x.length, x.data, 0, 1, y.data, 0, 1);
 		return y;
 	}
+
+    /**
+     * Compute x &lt;-&gt; y (swap two complex matrices)
+     */
+    public static ComplexFloatMatrix swap(ComplexFloatMatrix x, ComplexFloatMatrix y) {
+        // take twice the length, because .data() unrolls both the real and complex part
+        JavaBlas.rswap(2 * x.length, x.data, 0, 1, y.data, 0, 1);
+        return y;
+    }
 
 	/**
 	 * Compute x <- alpha * x (scale a matrix)

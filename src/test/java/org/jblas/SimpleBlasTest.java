@@ -46,7 +46,9 @@ import static org.junit.Assert.*;
  * @author Mikio L. Braun
  */
 public class SimpleBlasTest {
-    
+
+    private final double eps = 1e-10;
+
     @Test
     public void testGeev() {
         DoubleMatrix A = new DoubleMatrix(2, 2, 3.0, -3.0, 1.0, 1.0);
@@ -65,6 +67,34 @@ public class SimpleBlasTest {
         System.out.printf("VR = %s\n", VR.toString());
         System.out.printf("VL = %s\n", VL.toString());
         System.out.printf("A = %s\n", A.toString());*/
-        
+    }
+
+    @Test
+    public void testSwapReal() {
+        DoubleMatrix x = new DoubleMatrix(new double[]{1, 2, 3});
+        DoubleMatrix y = x.dup().mul(-1);
+
+        SimpleBlas.swap(x, y);
+
+        assertEquals(-6, x.sum(), eps);
+        assertEquals(6, y.sum(), eps);
+
+    }
+
+    @Test
+    public void testSwapComplex() {
+        ComplexDoubleMatrix x = new ComplexDoubleMatrix(
+                new DoubleMatrix(new double[][]{{1, 1}, {1, 1}}),
+                new DoubleMatrix(new double[][]{{0, 0}, {0, 0}})
+        );
+        ComplexDoubleMatrix y = new ComplexDoubleMatrix(
+                new DoubleMatrix(new double[][]{{0, 0}, {0, 0}}),
+                new DoubleMatrix(new double[][]{{1, 1}, {1, 1}})
+        );
+
+        SimpleBlas.swap(x, y);
+
+        assertEquals(4, x.sum().imag(), eps);
+        assertEquals(4, y.sum().real(), eps);
     }
 }

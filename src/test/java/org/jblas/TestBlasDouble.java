@@ -168,6 +168,15 @@ public class TestBlasDouble {
   }
 
   @Test
+  public void testSymmetricComplexSolve() {
+    ComplexDoubleMatrix A = new ComplexDoubleMatrix(3, 3, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 8, 0, 9, 0);
+    ComplexDoubleMatrix x = new ComplexDoubleMatrix(3, 1, 1, 0, 2, 0, 3, 0);
+    int[] p = new int[3];
+    SimpleBlas.sysv('U', A, p, x);
+    assertTrue(arraysEqual(x.real().data, 0.3, 0.0, 0.1));
+  }
+
+  @Test
   public void testSYEV() {
     /* From R:
         > x <- matrix(c(1,0.5,0.1,0.5,1.0, 0.5, 0.1, 0.5, 1.0), 3, 3)

@@ -135,7 +135,7 @@ generated-sources: \
 	$(BLAS)/[sdcz]ger*.f \
 	$(BLAS)/[sdcz]gemm.f \
 	$(LAPACK)/[sd]gesv.f \
-	$(LAPACK)/[sd]sysv.f \
+	$(LAPACK)/[sdcz]sysv.f \
 	$(LAPACK)/[sd]syev.f \
 	$(LAPACK)/[sd]syev[rdx].f \
 	$(LAPACK)/[sdcz]posv.f \

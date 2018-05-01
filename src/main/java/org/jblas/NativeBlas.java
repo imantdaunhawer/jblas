@@ -133,6 +133,19 @@ public class NativeBlas {
   public static native void zgemm(char transa, char transb, int m, int n, int k, ComplexDouble alpha, double[] a, int aIdx, int lda, double[] b, int bIdx, int ldb, ComplexDouble beta, double[] c, int cIdx, int ldc);
   public static native int dgesv(int n, int nrhs, double[] a, int aIdx, int lda, int[] ipiv, int ipivIdx, double[] b, int bIdx, int ldb);
   public static native int sgesv(int n, int nrhs, float[] a, int aIdx, int lda, int[] ipiv, int ipivIdx, float[] b, int bIdx, int ldb);
+  public static native int csysv(char uplo, int n, int nrhs, float[] a, int aIdx, int lda, int[] ipiv, int ipivIdx, float[] b, int bIdx, int ldb, float[] work, int workIdx, int lwork);
+  public static int csysv(char uplo, int n, int nrhs, float[] a, int aIdx, int lda, int[] ipiv, int ipivIdx, float[] b, int bIdx, int ldb) {
+    int info;
+    float[] work = new float[1*2];
+    int lwork;
+    info = csysv(uplo, n, nrhs, floatDummy, 0, lda, intDummy, 0, floatDummy, 0, ldb, work, 0, -1);
+    if (info != 0)
+      return info;
+    lwork = (int) work[0]; work = new float[lwork*2];
+    info = csysv(uplo, n, nrhs, a, aIdx, lda, ipiv, ipivIdx, b, bIdx, ldb, work, 0, lwork);
+    return info;
+  }
+
   public static native int dsysv(char uplo, int n, int nrhs, double[] a, int aIdx, int lda, int[] ipiv, int ipivIdx, double[] b, int bIdx, int ldb, double[] work, int workIdx, int lwork);
   public static int dsysv(char uplo, int n, int nrhs, double[] a, int aIdx, int lda, int[] ipiv, int ipivIdx, double[] b, int bIdx, int ldb) {
     int info;
@@ -156,6 +169,19 @@ public class NativeBlas {
       return info;
     lwork = (int) work[0]; work = new float[lwork];
     info = ssysv(uplo, n, nrhs, a, aIdx, lda, ipiv, ipivIdx, b, bIdx, ldb, work, 0, lwork);
+    return info;
+  }
+
+  public static native int zsysv(char uplo, int n, int nrhs, double[] a, int aIdx, int lda, int[] ipiv, int ipivIdx, double[] b, int bIdx, int ldb, double[] work, int workIdx, int lwork);
+  public static int zsysv(char uplo, int n, int nrhs, double[] a, int aIdx, int lda, int[] ipiv, int ipivIdx, double[] b, int bIdx, int ldb) {
+    int info;
+    double[] work = new double[1*2];
+    int lwork;
+    info = zsysv(uplo, n, nrhs, doubleDummy, 0, lda, intDummy, 0, doubleDummy, 0, ldb, work, 0, -1);
+    if (info != 0)
+      return info;
+    lwork = (int) work[0]; work = new double[lwork*2];
+    info = zsysv(uplo, n, nrhs, a, aIdx, lda, ipiv, ipivIdx, b, bIdx, ldb, work, 0, lwork);
     return info;
   }
 

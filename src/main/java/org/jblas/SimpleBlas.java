@@ -297,7 +297,20 @@ public class SimpleBlas {
 		checkInfo("SYSV", info);
 
 		if (info > 0)
-			throw new LapackSingularityException("SYV",
+			throw new LapackSingularityException("SYSV",
+					"Linear equation cannot be solved because the matrix was singular.");
+
+		return b;
+	}
+
+	public static ComplexDoubleMatrix sysv(char uplo, ComplexDoubleMatrix a, int[] ipiv,
+            ComplexDoubleMatrix b) {
+		int info = NativeBlas.zsysv(uplo, a.rows, b.columns, a.data, 0, a.rows, ipiv, 0,
+				b.data, 0, b.rows);
+		checkInfo("SYSV", info);
+
+		if (info > 0)
+			throw new LapackSingularityException("SYSV",
 					"Linear equation cannot be solved because the matrix was singular.");
 
 		return b;
@@ -756,7 +769,20 @@ public class SimpleBlas {
 		checkInfo("SYSV", info);
 
 		if (info > 0)
-			throw new LapackSingularityException("SYV",
+			throw new LapackSingularityException("SYSV",
+					"Linear equation cannot be solved because the matrix was singular.");
+
+		return b;
+	}
+
+	public static ComplexFloatMatrix sysv(char uplo, ComplexFloatMatrix a, int[] ipiv,
+            ComplexFloatMatrix b) {
+		int info = NativeBlas.csysv(uplo, a.rows, b.columns, a.data, 0, a.rows, ipiv, 0,
+				b.data, 0, b.rows);
+		checkInfo("SYSV", info);
+
+		if (info > 0)
+			throw new LapackSingularityException("SYSV",
 					"Linear equation cannot be solved because the matrix was singular.");
 
 		return b;

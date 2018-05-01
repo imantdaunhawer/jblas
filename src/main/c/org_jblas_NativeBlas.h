@@ -429,6 +429,14 @@ JNIEXPORT jint JNICALL Java_org_jblas_NativeBlas_sgesv
 
 /*
  * Class:     org_jblas_NativeBlas
+ * Method:    csysv
+ * Signature: (CII[FII[II[FII[FII)I
+ */
+JNIEXPORT jint JNICALL Java_org_jblas_NativeBlas_csysv
+  (JNIEnv *, jclass, jchar, jint, jint, jfloatArray, jint, jint, jintArray, jint, jfloatArray, jint, jint, jfloatArray, jint, jint);
+
+/*
+ * Class:     org_jblas_NativeBlas
  * Method:    dsysv
  * Signature: (CII[DII[II[DII[DII)I
  */
@@ -442,6 +450,14 @@ JNIEXPORT jint JNICALL Java_org_jblas_NativeBlas_dsysv
  */
 JNIEXPORT jint JNICALL Java_org_jblas_NativeBlas_ssysv
   (JNIEnv *, jclass, jchar, jint, jint, jfloatArray, jint, jint, jintArray, jint, jfloatArray, jint, jint, jfloatArray, jint, jint);
+
+/*
+ * Class:     org_jblas_NativeBlas
+ * Method:    zsysv
+ * Signature: (CII[DII[II[DII[DII)I
+ */
+JNIEXPORT jint JNICALL Java_org_jblas_NativeBlas_zsysv
+  (JNIEnv *, jclass, jchar, jint, jint, jdoubleArray, jint, jint, jintArray, jint, jdoubleArray, jint, jint, jdoubleArray, jint, jint);
 
 /*
  * Class:     org_jblas_NativeBlas
@@ -509,6 +525,14 @@ JNIEXPORT jint JNICALL Java_org_jblas_NativeBlas_ssyevx
 
 /*
  * Class:     org_jblas_NativeBlas
+ * Method:    cposv
+ * Signature: (CII[FII[FII)I
+ */
+JNIEXPORT jint JNICALL Java_org_jblas_NativeBlas_cposv
+  (JNIEnv *, jclass, jchar, jint, jint, jfloatArray, jint, jint, jfloatArray, jint, jint);
+
+/*
+ * Class:     org_jblas_NativeBlas
  * Method:    dposv
  * Signature: (CII[DII[DII)I
  */
@@ -522,6 +546,14 @@ JNIEXPORT jint JNICALL Java_org_jblas_NativeBlas_dposv
  */
 JNIEXPORT jint JNICALL Java_org_jblas_NativeBlas_sposv
   (JNIEnv *, jclass, jchar, jint, jint, jfloatArray, jint, jint, jfloatArray, jint, jint);
+
+/*
+ * Class:     org_jblas_NativeBlas
+ * Method:    zposv
+ * Signature: (CII[DII[DII)I
+ */
+JNIEXPORT jint JNICALL Java_org_jblas_NativeBlas_zposv
+  (JNIEnv *, jclass, jchar, jint, jint, jdoubleArray, jint, jint, jdoubleArray, jint, jint);
 
 /*
  * Class:     org_jblas_NativeBlas
